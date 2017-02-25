@@ -13,6 +13,7 @@ function demarrerPartie() {
     $_SESSION['MotSecret'] = 'bonjour';
     $_SESSION['Indice'] = '-------';
     $_SESSION['LettresFausses'] = array();
+    $_SESSION['LettresJouees'] = array();
     $_SESSION['Statut'] = 'EnCours';
 }
 
@@ -37,7 +38,7 @@ function setIndice($indice) {
 }
 
 function getLettreFausses() {
-    return (isset($_SESSION['LettreFausses']) ? $_SESSION['LettresFausses'] : array());
+    return (isset($_SESSION['LettresFausses']) ? $_SESSION['LettresFausses'] : array());
 }
 
 function setLettreFausses($lettreFausses) {
@@ -48,8 +49,27 @@ function ajouterLettreFausse($lettre) {
     $_SESSION['LettresFausses'][] = $lettre;
 }
 
+function nbErreurs(){
+    $lettresFausses = getLettreFausses();
+    return count($lettresFausses);
+}
+
+function getLettresJouees() {
+    return (isset($_SESSION['LettresJouees']) ? $_SESSION['LettresJouees'] : array());
+}
+
+function setLettresJouees($lettreFausses) {
+    $_SESSION['LettresJouees'] = $lettreFausses;
+}
+
+function ajouterLettreJouee($lettre) {
+    $_SESSION['LettresJouees'][] = $lettre;
+}
+
+
 function verifierLettre($lettre) {
     $motSecret = getMotSecret();
+    ajouterLettreJouee($lettre);
     // si la lettre n'est pas dans le mot secret
     // on la met dans les lettres fausses
     if (strpos($motSecret, $lettre) === false) {

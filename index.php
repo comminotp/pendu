@@ -1,7 +1,7 @@
 <?php
 // Description : petite application pour jouer au pendu
 // Premier jet avec GitHub
-// Tout en vrac dans le même script, pas de fin de jeu
+// Découpage MVC
 // Auteur : Pascal Comminot
 
 require_once 'model/modele.php';

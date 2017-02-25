@@ -16,22 +16,28 @@
                 <td>
                     <h3>Choisissez une lettre</h3>
 
-                    <form method="post">
+                    <form method="post" action=".">
                         <p>
-                            <?php foreach (range('a', 'z') as $l) : ?>
+                            <?php 
+                                foreach (range('a', 'z') as $l) : 
+                                    if (!in_array($l, getLettresJouees())) :
+                            ?>
                                 <input type="submit" name="proposition" value="<?php echo $l ?>" />
-                            <?php endforeach; ?>
+                            <?php
+                                    endif;
+                                endforeach; 
+                            ?>
                         </p>
                     </form>
 
                     <h3>Indice</h3>
-                    <h4><?= $_SESSION['Indice'] ?></h4>
+                    <h4><?= getIndice() ?></h4>
 
                     <h3>lettres erronées</h3>
-                    <h4><?php var_dump($_SESSION['LettresFausses']) ?></h4>
+                    <h4><?= implode(' ', getLettreFausses()) ?></h4>
                 </td>
                 <td>
-                    <img src="images/pendu9.JPG" alt="potence et pendu" />
+                    <img src="images/pendu<?= nbErreurs() ?>.JPG" alt="potence et pendu" />
                 </td>
 
             </tr>
@@ -40,6 +46,6 @@
             <?php var_dump($_SESSION); ?>
         </pre>
         <hr>
-        <p><a href="reset.php">Recommencer une partie</a></p>
+        <p><a href="index.php?restart=true">Recommencer une partie</a></p>
     </body>
 </html>
